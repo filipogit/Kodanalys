@@ -4,8 +4,9 @@ namespace Kodanalys
 {
     class program
     {
-        static string[] celestialWhispers = new string[10];
-        static int magicConstant = 0;
+        string[] users = new string[10];
+        int userCount = 0;
+
 
         static void Main(string[] args)
         {
