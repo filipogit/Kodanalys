@@ -2,7 +2,7 @@
 
 namespace Kodanalys
 {
-    class Program
+
     class Program
     {
         static UserManager userManager = new UserManager();
@@ -49,4 +49,4 @@ namespace Kodanalys
                 Console.WriteLine("Användaren hittades inte.");
         }
     }
-
+}
