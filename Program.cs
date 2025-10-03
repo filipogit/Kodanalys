@@ -2,7 +2,7 @@
 
 namespace Kodanalys
 {
-    class program
+    class Program
     class Program
     {
         static UserManager userManager = new UserManager();
