@@ -7,11 +7,57 @@ namespace Kodanalys
     {
         static UserManager userManager = new UserManager();
 
+        static void Main(string[] args)
+        {
+            userManager.LoadFromFile();
+
+            bool running = true;
+            while (running)
+            {
+                ShowMenu();
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        AddUser();
+                        break;
+                    case "2":
+                        ShowUsers();
+                        break;
+                    case "3":
+                        RemoveUser();
+                        break;
+                    case "4":
+                        SearchUser();
+                        break;
+                    case "5":
+                        running = false;
+                        break;
+                    default:
+                        Console.WriteLine("Ogiltigt val.");
+                        break;
+                }
+
+                Console.WriteLine();
+            }
+
+            userManager.SaveToFile();
+        }
+
+        static void ShowMenu()
+        {
+            Console.WriteLine("Välj ett alternativ:");
+            Console.WriteLine("1. Lägg till användare");
+            Console.WriteLine("2. Visa alla användare");
+            Console.WriteLine("3. Ta bort användare");
+            Console.WriteLine("4. Sök användare");
+            Console.WriteLine("5. Avsluta");
+        }
+
         static void AddUser()
         {
-            Console.Write("Ange namn: ");
-            string name = Console.ReadLine();
-
+            string name = PromptForValidName("Ange namn: ");
             if (userManager.AddUser(name))
                 Console.WriteLine("Användaren har lagts till.");
             else
@@ -29,9 +75,7 @@ namespace Kodanalys
 
         static void RemoveUser()
         {
-            Console.Write("Ange namn att ta bort: ");
-            string name = Console.ReadLine();
-
+            string name = PromptForValidName("Ange namn att ta bort: ");
             if (userManager.RemoveUser(name))
                 Console.WriteLine("Användaren togs bort.");
             else
@@ -40,13 +84,24 @@ namespace Kodanalys
 
         static void SearchUser()
         {
-            Console.Write("Ange namn att söka: ");
-            string name = Console.ReadLine();
-
+            string name = PromptForValidName("Ange namn att söka: ");
             if (userManager.UserExists(name))
                 Console.WriteLine("Användaren finns i listan.");
             else
                 Console.WriteLine("Användaren hittades inte.");
+        }
+
+        static string PromptForValidName(string prompt)
+        {
+            string input;
+            do
+            {
+                Console.Write(prompt);
+                input = Console.ReadLine()?.Trim();
+            }
+            while (string.IsNullOrWhiteSpace(input));
+
+            return input;
         }
     }
 }
